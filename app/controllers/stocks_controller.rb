@@ -27,26 +27,4 @@ class StocksController < ApplicationController
         render json: unique_stocks
     end
 
-    def show
-        user = User.find_by(id: params[:id])
-        unique_stock_transactions = user.transactions.where(symbol: params[:symbol])
-
-        total_shares = 0
-        total_price = 0
-
-        unique_stock_transactions.each do |transaction|
-            if transaction.is_sell
-                total_shares = total_shares - transaction.total_shares
-                total_price = total_price - transaction.total_price
-            else
-                total_shares = total_shares + transaction.total_shares
-                total_price = total_price + transaction.total_price
-            end
-        end
-
-        unique_stock = {symbol: params[:symbol], total_shares: total_shares, total_price: total_price}
-
-        render json: unique_stock
-    end
-
 end
