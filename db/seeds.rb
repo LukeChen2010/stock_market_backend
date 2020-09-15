@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.create(balance: 100000)
+Transaction.create(user_id: 1, symbol: "SBUX", total_shares: 10, total_price: 860, is_sell: false)
+Transaction.create(user_id: 1, symbol: "AAPL", total_shares: 10, total_price: 1150, is_sell: false)
+Transaction.create(user_id: 1, symbol: "TSLA", total_shares: 10, total_price: 4200, is_sell: false)
+
+Transaction.create(user_id: 1, symbol: "SBUX", total_shares: 5, total_price: 400, is_sell: true)
+Transaction.create(user_id: 1, symbol: "AAPL", total_shares: 5, total_price: 600, is_sell: true)
+Transaction.create(user_id: 1, symbol: "TSLA", total_shares: 5, total_price: 2200, is_sell: true)
