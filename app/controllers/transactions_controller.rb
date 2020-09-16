@@ -14,7 +14,13 @@ class TransactionsController < ApplicationController
         user_id = params[:user_id]
         symbol = params[:symbol]
         total_shares = params[:total_shares]
-        total_price = params[:total_price]
+
+        #To be fixed
+        #total_price will not come in params hash
+        #Instead, the back-end will fetch a live price from the Finnhub API
+        #This will keep business logic away from the front-end
+        total_price = params[:total_price] 
+
         is_sell = params[:is_sell]
 
         user = User.find_by(id: params[:user_id]) 

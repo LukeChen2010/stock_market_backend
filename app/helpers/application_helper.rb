@@ -35,7 +35,7 @@ module ApplicationHelper
         return unique_stocks
     end
 
-    #This method will call a third-party API to get live stock prices
+    #This method will call the Finnhub API to get live stock prices
     def stock_quote(symbol)
         
     end

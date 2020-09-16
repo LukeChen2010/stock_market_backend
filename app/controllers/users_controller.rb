@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     #My front-end will not have any login/logout/signup functionality
     #That would require a front-end framework to handle cookies and sessions
     #The project directions explicitly say to use one HTML file to render a React/Redux app
-    #Therefore, I am leaving out this functionality
+    #Therefore, I am leaving out login/logout/signup functionality
     #Still, if I ever wanted to add this functionality down the road, my back-end is already set up for that
 
     def index
