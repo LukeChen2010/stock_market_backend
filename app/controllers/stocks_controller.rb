@@ -1,29 +1,13 @@
 class StocksController < ApplicationController
 
+    #There is no Stock model that is associated with StocksController
+    #Instead, Stock "objects" are derived from Transaction objects
+    #e.g. if a user buys 50 shares of Apple stock and then sells 10 shares, the Stock "object" will show the user owning 40 shares of Apple stock
+    #Not the most RESTful way to do it, but it makes the routes look clean: e.g. users/1/stocks
+    #I could have chosen to use the front-end to crunch this data, but I think it makes much more sense to leave it in the back-end
+
     def index
-        user = User.find_by(id: params[:id])
-        unique_stock_symbols = user.transactions.uniq {|x| x.symbol}.pluck(:symbol)
-        unique_stocks = []
-
-        unique_stock_symbols.each do |stock|
-            unique_stock_transactions = user.transactions.where(symbol: stock)
-            total_shares = 0
-            total_price = 0
-
-            unique_stock_transactions.each do |transaction|
-                if transaction.is_sell
-                    total_shares = total_shares - transaction.total_shares
-                    total_price = total_price - transaction.total_price
-                else
-                    total_shares = total_shares + transaction.total_shares
-                    total_price = total_price + transaction.total_price
-                end
-            end
-
-            unique_stock = {symbol: stock, total_shares: total_shares, total_price: total_price}
-            unique_stocks.push(unique_stock)
-        end
-
+        unique_stocks = helpers.get_stocks(params[:id])
         render json: unique_stocks
     end
 
