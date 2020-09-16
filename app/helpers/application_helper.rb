@@ -4,11 +4,7 @@ module ApplicationHelper
     #This function is wrapped in its own helper because there are two controller actions that need this helper:
     #1. get 'users/:id/stocks' => 'stocks#index' This controller action displays a tally of all stocks that the user currently owns
     #2. post 'users/:id/transactions/new' => 'transactions#new' This controller action needs to know how many shares the user currently owns so the user cannot sell stocks which they do not own
-
     def get_stocks(user_id)
-        #This algorithm is pretty brute-force, lots of looping, but it works
-        #There might be a more elegant way to do it by using a collection processing method (like map for example?)
-
         user = User.find_by(id: user_id)
         unique_stock_symbols = user.transactions.uniq {|x| x.symbol}.pluck(:symbol)
         unique_stocks = []
