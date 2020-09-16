@@ -7,6 +7,7 @@ class StocksController < ApplicationController
     #I could have chosen to use the front-end to crunch this data, but I think it makes much more sense to leave it in the back-end
 
     def index
+        #See the get_stocks method under application_helper.rb for algorithm
         unique_stocks = helpers.get_stocks(params[:id])
         render json: unique_stocks
     end
