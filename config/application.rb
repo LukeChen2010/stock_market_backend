@@ -17,3 +17,14 @@ module StockMarketBackend
     # the framework and any gems in your application.
   end
 end
+
+module Saverecord
+  class Application < Rails::Application
+    Rails.application.config.action_controller.forgery_protection_origin_check = false
+    config.action_controller.allow_forgery_protection = false
+
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.2
+
+  end
+end
