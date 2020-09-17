@@ -29,7 +29,7 @@ module ApplicationHelper
             current_price = unique_stock_quote[:current_price]
 
             unique_stock = {symbol: symbol, total_shares: total_shares, total_price: total_price, previous_close: previous_close, current_price: current_price}
-            unique_stocks.push(unique_stock)
+            unique_stocks.push(unique_stock) unless unique_stock.total_shares == 0
         end
 
         return unique_stocks
