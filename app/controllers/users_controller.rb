@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-    #I will have a user model so that I can persist the user's balance
+    #I will have a User model so that I can persist the user's balance
     #My front-end will not have any login/logout/signup functionality
     #That would require a front-end framework to handle cookies and sessions
     #The project directions explicitly say to use one HTML file to render a React/Redux app

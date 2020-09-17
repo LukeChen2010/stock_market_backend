@@ -15,11 +15,7 @@ class TransactionsController < ApplicationController
         symbol = params[:symbol]
         total_shares = params[:total_shares]
 
-        #To be fixed
-        #total_price will not come in params hash
-        #Instead, the back-end will fetch a live price from the Finnhub API
-        #This will keep business logic away from the front-end
-        total_price = params[:total_price] 
+        total_price = helpers.get_stock_quote(symbol)[:current_price] * total_shares
 
         is_sell = params[:is_sell]
 
