@@ -10,6 +10,9 @@ class UsersController < ApplicationController
     def show
         user = User.find_by(id: params[:id])
 
+        #I need a way to get the value of the user's portfolio
+        #This is equal to the sum of the user's balance and the current value of all their stocks
+        #This value can be computed from the existing resources (Users and Transactions)
         stocks = helpers.get_stocks(user.id)
         portfolio_value = user.balance.to_f
 
