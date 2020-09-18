@@ -9,8 +9,6 @@ class TransactionsController < ApplicationController
     end
 
     def new
-        puts "test"
-
         user_id = params[:user_id]
         symbol = params[:symbol]
         total_shares = params[:total_shares]
