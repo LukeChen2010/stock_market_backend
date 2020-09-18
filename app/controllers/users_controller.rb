@@ -7,14 +7,17 @@ class UsersController < ApplicationController
     #Therefore, I am leaving out login/logout/signup functionality
     #Still, if I ever wanted to add this functionality down the road, my back-end is already set up for that
 
-    def index
-        users = User.all
-        render json: users
-    end
-
     def show
         user = User.find_by(id: params[:id])
-        render json: user
+
+        stocks = helpers.get_stocks(user.id)
+        portfolio_value = user.balance.to_f
+
+        stocks.each do |x|
+            portfolio_value += x[:current_price] * x[:total_shares]
+        end
+
+        render json: JSON.parse(user.to_json).merge({portfolio_value: portfolio_value.round(2).to_s})
     end
  
 end
