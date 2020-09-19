@@ -13,6 +13,11 @@ class TransactionsController < ApplicationController
         symbol = params[:symbol]
         total_shares = params[:total_shares]
 
+        if total_shares < 0
+            render json: {message: "input_error"}
+            return
+        end
+
         total_price = helpers.get_stock_quote(symbol)[:current_price] * total_shares
 
         is_sell = params[:is_sell]

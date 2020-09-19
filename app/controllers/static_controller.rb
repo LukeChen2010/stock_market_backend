@@ -1,8 +1,8 @@
 class StaticController < ApplicationController
 
-    def profile
-        profile = helpers.get_stock_profile(params[:symbol])
-        render json: profile
+    def stock_quote
+        stock_quote = helpers.get_stock_profile(params[:symbol])
+        render json: stock_quote
     end
 
 end

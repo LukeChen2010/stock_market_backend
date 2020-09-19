@@ -35,6 +35,7 @@ module ApplicationHelper
         return unique_stocks
     end
 
+    #These are just helpers to abstract data from the FinnHub API
     def get_stock_profile(symbol)
         stock_profile = get_payload("https://finnhub.io/api/v1/stock/profile2?symbol=#{symbol}&token=brbai0nrh5rb7je2n1l0")
         profile = {}
