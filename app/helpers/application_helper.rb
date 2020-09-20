@@ -27,8 +27,11 @@ module ApplicationHelper
             unique_stock_quote = get_stock_quote(symbol)
             previous_close = unique_stock_quote[:previous_close]
             current_price = unique_stock_quote[:current_price]
+            daily_change = (current_price - previous_close).round(2)
+            current_value = current_price * total_shares
+            total_gain_loss = current_value - total_price
 
-            unique_stock = {symbol: symbol, total_shares: total_shares, total_price: total_price, previous_close: previous_close, current_price: current_price}
+            unique_stock = {symbol: symbol, total_shares: total_shares, total_price: total_price, previous_close: previous_close, current_price: current_price, daily_change: daily_change, current_value: current_value, total_gain_loss: total_gain_loss}
             unique_stocks.push(unique_stock) unless unique_stock[:total_shares] == 0
         end
 
