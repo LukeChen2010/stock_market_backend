@@ -9,11 +9,13 @@ module ApplicationHelper
         unique_stock_symbols = user.transactions.uniq {|x| x.symbol}.pluck(:symbol)
         unique_stocks = []
 
+        id = 1
+
         unique_stock_symbols.each do |symbol|
             unique_stock_transactions = user.transactions.where(symbol: symbol)
             total_shares = 0
             total_price = 0
-
+            
             unique_stock_transactions.each do |transaction|
                 if transaction.is_sell
                     total_shares = total_shares - transaction.total_shares
@@ -28,11 +30,13 @@ module ApplicationHelper
             previous_close = unique_stock_quote[:previous_close]
             current_price = unique_stock_quote[:current_price]
             daily_change = (current_price - previous_close).round(2)
-            current_value = current_price * total_shares
-            total_gain_loss = current_value - total_price
+            current_value = (current_price * total_shares).round(2)
+            total_gain_loss = (current_value - total_price).round(2)
 
-            unique_stock = {symbol: symbol, total_shares: total_shares, total_price: total_price, previous_close: previous_close, current_price: current_price, daily_change: daily_change, current_value: current_value, total_gain_loss: total_gain_loss}
+            unique_stock = {id: id, symbol: symbol, total_shares: total_shares, total_price: total_price, previous_close: previous_close, current_price: current_price, daily_change: daily_change, current_value: current_value, total_gain_loss: total_gain_loss}
             unique_stocks.push(unique_stock) unless unique_stock[:total_shares] == 0
+
+            id = id + 1
         end
 
         return unique_stocks
