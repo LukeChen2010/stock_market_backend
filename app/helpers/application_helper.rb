@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-    #This function is wrapped in its own helper because there are two controller actions that need this helper:
+    #This function is wrapped in its own helper because there are several controller actions that need this helper:
     #1. get 'users/:id => 'stocks#index' Needs data from this helper to calculate portfolio value
     #2. get 'users/:id/stocks' => 'stocks#index' Displays a tally of all stocks that the user currently owns
     #3. post 'users/:id/transactions/new' => 'transactions#new'  Needs data from this helper to know how many shares the user currently owns so the user cannot sell stocks which they do not own
