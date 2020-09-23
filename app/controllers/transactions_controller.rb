@@ -9,7 +9,7 @@ class TransactionsController < ApplicationController
     end
 
     def new
-        user_id = params[:user_id]
+        id = params[:id]
         symbol = params[:symbol]
         total_shares = params[:total_shares]
 
@@ -22,17 +22,17 @@ class TransactionsController < ApplicationController
 
         is_sell = params[:is_sell]
 
-        user = User.find_by(id: params[:user_id]) 
+        user = User.find_by(id: id) 
 
         if is_sell
-            owned_stock = helpers.get_stocks(user_id).find {|x| x[:symbol] == symbol}
+            owned_stock = helpers.get_stocks(id).find {|x| x[:symbol] == symbol}
 
             #Prevent the user from selling stocks that they do not currently own
             if !owned_stock || owned_stock[:total_shares] < total_shares
                 render json: {message: "insufficient_shares"}
             else
             #Perform the transaction
-                stock = Transaction.create(user_id: user_id, symbol: symbol, total_shares: total_shares, total_price: total_price, is_sell: is_sell)
+                stock = user.transactions.create(symbol: symbol, total_shares: total_shares, total_price: total_price, is_sell: is_sell)
                 user.balance += total_price
                 user.save
                 render json: stock
@@ -43,7 +43,7 @@ class TransactionsController < ApplicationController
                 render json: {message: "insufficient_balance"}
             else
             #Perform the transaction
-                stock = Transaction.create(user_id: user_id, symbol: symbol, total_shares: total_shares, total_price: total_price, is_sell: is_sell)
+                stock = user.transactions.create(symbol: symbol, total_shares: total_shares, total_price: total_price, is_sell: is_sell)
                 user.balance -= total_price
                 user.save
                 render json: stock
