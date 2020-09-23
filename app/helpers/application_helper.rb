@@ -1,9 +1,9 @@
 module ApplicationHelper
 
-    #This helper iterates through all the Transactions belonging to the user and consolidates them to get the total shares owned of each stock
     #This function is wrapped in its own helper because there are two controller actions that need this helper:
-    #1. get 'users/:id/stocks' => 'stocks#index' This controller action displays a tally of all stocks that the user currently owns
-    #2. post 'users/:id/transactions/new' => 'transactions#new' This controller action needs to know how many shares the user currently owns so the user cannot sell stocks which they do not own
+    #1. get 'users/:id => 'stocks#index' Needs data from this helper to calculate portfolio value
+    #2. get 'users/:id/stocks' => 'stocks#index' Displays a tally of all stocks that the user currently owns
+    #3. post 'users/:id/transactions/new' => 'transactions#new'  Needs data from this helper to know how many shares the user currently owns so the user cannot sell stocks which they do not own
     def get_stocks(user_id)
         user = User.find_by(id: user_id)
         unique_stock_symbols = user.transactions.uniq {|x| x.symbol}.pluck(:symbol)
@@ -42,7 +42,6 @@ module ApplicationHelper
         return unique_stocks
     end
 
-    #These are just helpers to abstract data from the FinnHub API
     def get_stock_profile(symbol)
         stock_profile = get_payload("https://finnhub.io/api/v1/stock/profile2?symbol=#{symbol}&token=brbai0nrh5rb7je2n1l0")
         profile = {}

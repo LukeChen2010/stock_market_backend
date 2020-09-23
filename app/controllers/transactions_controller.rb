@@ -1,7 +1,5 @@
 class TransactionsController < ApplicationController
 
-    #Every stock transaction (buying and selling) is represented by one Transaction object
-
     def index
         user = User.find_by(id: params[:id])
         transactions = user.transactions
