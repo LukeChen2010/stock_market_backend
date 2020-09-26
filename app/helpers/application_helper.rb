@@ -53,7 +53,6 @@ module ApplicationHelper
             profile[:name] = stock_profile["name"]
             profile[:exchange] = stock_profile["exchange"]
             profile[:industry] = stock_profile["finnhubIndustry"]
-            profile[:weburl] = stock_profile["weburl"]
 
             stock_quote = get_payload("https://finnhub.io/api/v1/quote?symbol=#{symbol}&token=brbai0nrh5rb7je2n1l0")
             
